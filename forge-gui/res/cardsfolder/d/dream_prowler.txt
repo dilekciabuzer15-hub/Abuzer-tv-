@@ -1,0 +1,7 @@
+Name:Dream Prowler
+ManaCost:2 U U
+Types:Creature Illusion
+PT:1/5
+S:Mode$ Continuous | Affected$ Card.Self+attacking | AddHiddenKeyword$ Unblockable | CheckSVar$ X | SVarCompare$ EQ1 | Description$ CARDNAME can't be blocked as long as it's attacking alone.
+SVar:X:Count$Valid Card.attacking
+Oracle:Dream Prowler can't be blocked as long as it's attacking alone.

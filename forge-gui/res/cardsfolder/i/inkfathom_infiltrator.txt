@@ -1,0 +1,7 @@
+Name:Inkfathom Infiltrator
+ManaCost:UB UB
+Types:Creature Merfolk Rogue
+PT:2/1
+K:CARDNAME can't block.
+K:Unblockable
+Oracle:Inkfathom Infiltrator can't block and can't be blocked.

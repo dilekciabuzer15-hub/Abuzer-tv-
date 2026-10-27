@@ -1,0 +1,15 @@
+[metadata]
+Code=HTR18
+Date=2019-08-01
+Name=2018 Heroes of the Realm
+Code2=HTR18
+MciCode=htr18
+Type=Funny
+ScryfallCode=HTR18
+
+[cards]
+1 M Kharis & The Beholder @Joe Slucher
+2 M Optimus Prime, Inspiring Leader @Steve Argyle
+3 M Sol, Advocate Eternal @Randy Vargas
+4 M The Legend of Arena @Olena Richards
+4† M The Legend of Arena @Noah Bradley

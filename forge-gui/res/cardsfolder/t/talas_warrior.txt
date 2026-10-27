@@ -1,0 +1,6 @@
+Name:Talas Warrior
+ManaCost:1 U U
+Types:Creature Human Pirate Warrior
+PT:2/2
+K:Unblockable
+Oracle:Talas Warrior can't be blocked.

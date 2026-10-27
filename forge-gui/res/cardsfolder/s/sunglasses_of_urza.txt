@@ -1,0 +1,6 @@
+Name:Sunglasses of Urza
+ManaCost:3
+Types:Artifact
+S:Mode$ Continuous | Affected$ You | ManaConversion$ W->R | Description$ You may spend white mana as though it were red mana.
+AI:RemoveDeck:All
+Oracle:You may spend white mana as though it were red mana.

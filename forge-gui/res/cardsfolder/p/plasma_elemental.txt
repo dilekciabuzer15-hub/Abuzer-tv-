@@ -1,0 +1,6 @@
+Name:Plasma Elemental
+ManaCost:5 U
+Types:Creature Elemental
+PT:4/1
+K:Unblockable
+Oracle:Plasma Elemental can't be blocked.

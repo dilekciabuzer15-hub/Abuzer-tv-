@@ -1,0 +1,6 @@
+Name:Moat
+ManaCost:2 W W
+Types:Enchantment
+S:Mode$ Continuous | Affected$ Creature.withoutFlying | AddHiddenKeyword$ CARDNAME can't attack. | Description$ Creatures without flying can't attack.
+AI:RemoveDeck:Random
+Oracle:Creatures without flying can't attack.

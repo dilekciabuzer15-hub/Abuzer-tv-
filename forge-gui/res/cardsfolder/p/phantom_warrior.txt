@@ -1,0 +1,6 @@
+Name:Phantom Warrior
+ManaCost:1 U U
+Types:Creature Illusion Warrior
+PT:2/2
+K:Unblockable
+Oracle:Phantom Warrior can't be blocked.

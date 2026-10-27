@@ -1,0 +1,5 @@
+Name:Warning
+ManaCost:W
+Types:Instant
+A:SP$ Pump | Cost$ W | ValidTgts$ Creature.attacking | TgtPrompt$ Select target attacking creature | KW$ Prevent all combat damage that would be dealt by CARDNAME. | IsCurse$ True | SpellDescription$ Prevent all combat damage that would be dealt by target attacking creature this turn.
+Oracle:Prevent all combat damage that would be dealt by target attacking creature this turn.
