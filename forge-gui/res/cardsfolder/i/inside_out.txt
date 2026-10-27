@@ -1,0 +1,6 @@
+Name:Inside Out
+ManaCost:1 UR
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | SwitchPT$ True | SubAbility$ DBDraw | SpellDescription$ Switch target creature's power and toughness until end of turn.
+SVar:DBDraw:DB$ Draw | NumCards$ 1 | SpellDescription$ Draw a card.
+Oracle:Switch target creature's power and toughness until end of turn.\nDraw a card.

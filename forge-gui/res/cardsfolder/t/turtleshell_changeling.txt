@@ -1,0 +1,7 @@
+Name:Turtleshell Changeling
+ManaCost:3 U
+Types:Creature Shapeshifter
+PT:1/4
+K:Changeling
+A:AB$ Pump | Cost$ 1 U | Defined$ Self | SwitchPT$ True | SpellDescription$ Switch CARDNAME's power and toughness until end of turn.
+Oracle:Changeling (This card is every creature type.)\n{1}{U}: Switch Turtleshell Changeling's power and toughness until end of turn.

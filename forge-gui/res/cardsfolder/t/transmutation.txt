@@ -1,0 +1,5 @@
+Name:Transmutation
+ManaCost:1 B
+Types:Instant
+A:SP$ Pump | ValidTgts$ Creature | SwitchPT$ True | SpellDescription$ Switch target creature's power and toughness until end of turn.
+Oracle:Switch target creature's power and toughness until end of turn.
