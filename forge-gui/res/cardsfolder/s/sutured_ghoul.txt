@@ -1,0 +1,15 @@
+Name:Sutured Ghoul
+ManaCost:4 B B B
+Types:Creature Zombie
+PT:*/*
+K:Trample
+K:ETBReplacement:Copy:ChooseCreatures
+SVar:ChooseCreatures:DB$ ChooseCard | Defined$ You | Amount$ X | Choices$ Creature.YouOwn | ChoiceTitle$ Exile any number of creature cards from your graveyard. | ChoiceZone$ Graveyard | RememberChosen$ True | SubAbility$ ExileCreatures | SpellDescription$ As CARDNAME enters the battlefield, exile any number of creature cards from your graveyard.
+SVar:ExileCreatures:DB$ ChangeZone | Defined$ Remembered | Origin$ Graveyard | Destination$ Exile | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+S:Mode$ Continuous | EffectZone$ All | CharacteristicDefining$ True | SetPower$ TotalPower | SetToughness$ TotalToughness | References$ TotalPower,TotalToughness | Description$ CARDNAME's power is equal to the total power of the exiled cards and its toughness is equal to their total toughness.
+SVar:TotalPower:ExiledWith$CardPower
+SVar:TotalToughness:ExiledWith$CardToughness
+SVar:X:Count$TypeInYourYard.Creature
+AI:RemoveDeck:Random
+Oracle:Trample\nAs Sutured Ghoul enters the battlefield, exile any number of creature cards from your graveyard.\nSutured Ghoul's power is equal to the total power of the exiled cards and its toughness is equal to their total toughness.

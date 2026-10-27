@@ -1,0 +1,85 @@
+[metadata]
+Code=DDI
+Date=2012-03-30
+Name=Duel Decks: Venser vs. Koth
+MciCode=ddi
+Type=Duel_Decks
+
+[cards]
+1 M Venser, the Sojourner
+2 C Whitemane Lion
+3 C Augury Owl
+4 U Coral Fighters
+5 U Minamo Sightbender
+6 U Mistmeadow Witch
+7 C Scroll Thief
+8 C Neurok Invisimancer
+9 U Slith Strider
+10 U Sky Spirit
+11 U Wall of Denial
+12 R Galepowder Mage
+13 C Kor Cartographer
+14 R Clone
+15 U Cryptic Annelid
+16 C Primal Plasma
+17 U Sawtooth Loon
+18 U Cache Raiders
+19 R Windreaver
+20 C Jedit's Dragoons
+21 R Sunblast Angel
+22 R Sphinx of Uthuun
+23 U Path to Exile
+24 C Preordain
+25 C Sigil of Sleep
+26 C Revoke Existence
+27 U Angelic Shield
+28 U Oblivion Ring
+29 C Safe Passage
+30 C Steel of the Godhead
+31 U Vanish into Memory
+32 C Overrule
+33 C Azorius Chancery
+34 U Flood Plain
+35 U New Benalia
+36 U Sejiri Refuge
+37 C Soaring Seacliff
+38 L Plains
+39 L Plains
+40 L Plains
+41 L Island
+42 L Island
+43 L Island
+44 M Koth of the Hammer
+45 C Plated Geopede
+46 C Pygmy Pyrosaur
+47 C Pilgrim's Eye
+48 U Aether Membrane
+49 C Fiery Hellhound
+50 C Vulshok Sorcerer
+51 U Anger
+52 C Cosi's Ravager
+53 C Vulshok Berserker
+54 U Bloodfire Kavu
+55 U Stone Giant
+56 U Geyser Glider
+57 R Lithophage
+58 R Torchling
+59 C Chartooth Cougar
+60 U Earth Servant
+61 U Greater Stone Spirit
+62 R Bloodfire Colossus
+63 C Wayfarer's Bauble
+64 C Armillary Sphere
+65 R Journeyer's Kite
+66 U Vulshok Morningstar
+67 C Searing Blaze
+68 U Vulshok Battlegear
+69 C Downhill Charge
+70 C Seismic Strike
+71 C Spire Barrage
+72 U Jaws of Stone
+73 R Volley of Boulders
+74 L Mountain
+75 L Mountain
+76 L Mountain
+77 L Mountain

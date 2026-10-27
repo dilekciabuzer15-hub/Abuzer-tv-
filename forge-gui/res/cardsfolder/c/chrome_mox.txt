@@ -1,0 +1,9 @@
+Name:Chrome Mox
+ManaCost:0
+Types:Artifact
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | OptionalDecider$ You | Execute$ TrigExile | TriggerDescription$ Imprint — When CARDNAME enters the battlefield, you may exile a nonartifact, nonland card from your hand.
+SVar:TrigExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card.nonArtifact+nonLand | ChangeNum$ 1
+A:AB$ ManaReflected | Cost$ T | Valid$ ExiledWith | ColorOrType$ Color | ReflectProperty$ Is | SpellDescription$ Add one mana of any of the exiled card's colors.
+SVar:NeedsToPlayVar:Z GE1
+SVar:Z:Count$ValidHand Card.nonArtifact+nonColorless+nonLand+YouOwn
+Oracle:Imprint — When Chrome Mox enters the battlefield, you may exile a nonartifact, nonland card from your hand.\n{T}: Add one mana of any of the exiled card's colors.

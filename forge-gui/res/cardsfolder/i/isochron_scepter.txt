@@ -1,0 +1,8 @@
+Name:Isochron Scepter
+ManaCost:2
+Types:Artifact
+T:Mode$ ChangesZone | ValidCard$ Card.Self | Origin$ Any | Destination$ Battlefield | OptionalDecider$ You | Execute$ TrigExile | TriggerDescription$ Imprint — When CARDNAME enters the battlefield, you may exile an instant card with converted mana cost 2 or less from your hand.
+SVar:TrigExile:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Instant.cmcLE2 | ChangeNum$ 1
+A:AB$ Play | Cost$ 2 T | Valid$ Card.ExiledWithSource | ValidZone$ Exile | Amount$ All | CopyOnce$ True | WithoutManaCost$ True | Optional$ True | CopyCard$ True | SpellDescription$ You may copy the exiled card. If you do, you may cast the copy without paying its mana cost.
+AI:RemoveDeck:All
+Oracle:Imprint — When Isochron Scepter enters the battlefield, you may exile an instant card with converted mana cost 2 or less from your hand.\n{2}, {T}: You may copy the exiled card. If you do, you may cast the copy without paying its mana cost.

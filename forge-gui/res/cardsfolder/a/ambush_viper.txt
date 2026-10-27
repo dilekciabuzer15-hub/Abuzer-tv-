@@ -1,0 +1,8 @@
+Name:Ambush Viper
+ManaCost:1 G
+Types:Creature Snake
+PT:2/1
+K:Flash
+K:Deathtouch
+SVar:Picture:http://www.wizards.com/global/images/magic/general/ambush_viper.jpg
+Oracle:Flash\nDeathtouch
