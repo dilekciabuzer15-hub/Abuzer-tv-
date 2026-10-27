@@ -1,0 +1,13 @@
+Name:Psychic Theft
+ManaCost:1 U
+Types:Sorcery
+A:SP$ ChangeZone | Cost$ 1 U | ValidTgts$ Player | Origin$ Hand | Destination$ Exile | ChangeType$ Instant,Sorcery | IsCurse$ True | Chooser$ You | ChangeNum$ 1 | RememberChanged$ True | SubAbility$ TheftEffect | SpellDescription$ Target player reveals their hand. You choose an instant or sorcery card from it and exile that card. You may cast that card for as long as it remains exiled. At the beginning of the next end step, if you haven't cast the card, return it to its owner's hand. | StackDescription$ SpellDescription
+SVar:TheftEffect:DB$ Effect | StaticAbilities$ STMayPlay | Duration$ Permanent | RememberObjects$ RememberedCard | ForgetOnMoved$ Exile | Triggers$ TrigReturn | SVars$ DBReturn | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:ActivePsychic:Number$1
+SVar:STMayPlay:Mode$ AlternativeZone | ValidCard$ Card.IsRemembered+nonLand | Caster$ You | Origin$ Exile | Description$ You may cast that card for as long as it remains exiled.
+# Return the card as a normal trigger
+SVar:TrigReturn:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | TriggerZones$ Command | Execute$ DBReturn | TriggerDescription$ At the beginning of the next end step, if you haven't cast the card, return it to its owner's hand.
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Hand
+AI:RemoveDeck:All
+Oracle:Target player reveals their hand. You choose an instant or sorcery card from it and exile that card. You may cast that card for as long as it remains exiled. At the beginning of the next end step, if you haven't cast the card, return it to its owner's hand.

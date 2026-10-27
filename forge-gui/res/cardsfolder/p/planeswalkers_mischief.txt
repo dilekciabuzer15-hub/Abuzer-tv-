@@ -1,0 +1,12 @@
+Name:Planeswalker's Mischief
+ManaCost:2 U
+Types:Enchantment
+A:AB$ Reveal | Cost$ 3 U | Random$ True | RememberRevealed$ True | ValidTgts$ Opponent | TgtPrompt$ Select target opponent to reveal a card | SorcerySpeed$ True | SubAbility$ DBChangeZone | SpellDescription$ Target opponent reveals a card at random from their hand. If it's an instant or sorcery card, exile it. You may cast it without paying its mana cost for as long as it remains exiled. (If it has X in its mana cost, X is 0.) At the beginning of the next end step, if you haven't cast it, return it to its owner's hand. Activate this ability only any time you could cast a sorcery.
+SVar:DBChangeZone:DB$ ChangeZone | Defined$ Remembered | RememberChanged$ True | ForgetOtherRemembered$ True | Destination$ Exile | ConditionDefined$ Remembered | ConditionPresent$ Instant.Sorcery | SubAbility$ DBEffect
+SVar:DBEffect:DB$ Effect | StaticAbilities$ MischiefPlay | Triggers$ TrigEOT | SVars$ MischiefReturn | RememberObjects$ RememberedCard | ForgetOnMoved$ Exile | Permanent$ True | SubAbility$ DBCleanup
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+SVar:MischiefPlay:Mode$ AlternativeCost | ValidCard$ Card.IsRemembered | Caster$ You | Origin$ Exile | Cost$ 0 | Description$ You may cast a card without paying its mana cost as long as it remains exiled.
+SVar:TrigEOT:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ You | TriggerZones$ Command | Execute$ MischiefReturn | TriggerDescription$ At the beginning of the next end step, if you haven't cast it, return it to its owner's hand.
+SVar:MischiefReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Hand
+SVar:NonStackingEffect:True
+Oracle:{3}{U}: Target opponent reveals a card at random from their hand. If it's an instant or sorcery card, exile it. You may cast it without paying its mana cost for as long as it remains exiled. (If it has X in its mana cost, X is 0.) At the beginning of the next end step, if you haven't cast it, return it to its owner's hand. Activate this ability only any time you could cast a sorcery.

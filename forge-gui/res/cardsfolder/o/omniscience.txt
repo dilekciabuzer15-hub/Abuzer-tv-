@@ -1,0 +1,8 @@
+Name:Omniscience
+ManaCost:7 U U U
+Types:Enchantment
+
+S:Mode$ AlternativeCost | ValidCard$ Card.nonLand+YouOwn | Caster$ You | Cost$ 0 | Origin$ Hand | Description$ You may cast spells from your hand without paying their mana costs.
+SVar:AllowFreeCast:Always
+AI:RemoveDeck:Random
+Oracle:You may cast spells from your hand without paying their mana costs.

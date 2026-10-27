@@ -1,0 +1,8 @@
+Name:Stolen Goods
+ManaCost:3 U
+Types:Sorcery
+A:SP$ DigUntil | Cost$ 3 U | ValidTgts$ Opponent | Valid$ Card.nonLand | ValidDescription$ nonland | FoundDestination$ Exile | RevealedDestination$ Exile | RememberFound$ True | IsCurse$ True | SubAbility$ DBEffect | SpellDescription$ Target opponent exiles cards from the top of their library until they exile a nonland card. Until end of turn, you may cast that card without paying its mana cost.
+SVar:DBEffect:DB$ Effect | Name$ Stolen Goods Effect | StaticAbilities$ StolenGoodsPlay | SVars$ DBCleanup | RememberObjects$ RememberedCard | ForgetOnMoved$ Exile | Permanent$ True | SubAbility$ DBCleanup
+SVar:StolenGoodsPlay:Mode$ AlternativeCost | ValidCard$ Card.IsRemembered | Caster$ You | Origin$ Exile | Cost$ 0 | Description$ Until end of turn, you may cast that card without paying its mana cost.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Target opponent exiles cards from the top of their library until they exile a nonland card. Until end of turn, you may cast that card without paying its mana cost.

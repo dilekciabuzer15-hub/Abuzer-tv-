@@ -1,0 +1,17 @@
+Name:Aminatou's Augury
+ManaCost:6 U U
+Types:Sorcery
+A:SP$ Dig | Cost$ 6 U U | Defined$ You | DigNum$ 8 | ChangeNum$ All | DestinationZone$ Exile | RememberChanged$ True | SubAbility$ DBChooseLand | SpellDescription$ Exile the top eight cards of your library. You may put a land card from among them onto the battlefield. Until end of turn, for each nonland card type, you may cast a spell of that type from among the exiled cards without paying its mana cost.
+SVar:DBChooseLand:DB$ ChooseCard | Defined$ You | Choices$ Land.IsRemembered | Mandatory$ True | Amount$ 1 | ChoiceZone$ Exile | SubAbility$ DBChangeZone
+SVar:DBChangeZone:DB$ ChangeZone | Optional$ True | Defined$ ChosenCard | Origin$ Exile | Destination$ Battlefield | ChangeNum$ 1 | ForgetChanged$ True | SubAbility$ DBCleanupChosen
+SVar:DBCleanupChosen:DB$ Cleanup | ClearChosenCard$ True | SubAbility$ DBEffect
+SVar:DBEffect:DB$Effect | RememberObjects$ RememberedCard | StaticAbilities$ PlayCr,PlayPl,PlayAr,PlayEn,PlayIn,PlaySo,PlayTr | SubAbility$ DBCleanup | ForgetOnMoved$ Exile
+SVar:PlayCr:Mode$ AlternativeCost | ValidCard$ Creature.IsRemembered+YouOwn+nonLand | Caster$ You | Origin$ Exile | Cost$ 0 | MayPlayTurnLimit$ 1 | MayPlayText$ Creature
+SVar:PlayPl:Mode$ AlternativeCost | ValidCard$ Planeswalker.IsRemembered+YouOwn+nonLand | Caster$ You | Origin$ Exile | Cost$ 0 | MayPlayTurnLimit$ 1 | MayPlayText$ Planeswalker
+SVar:PlayAr:Mode$ AlternativeCost | ValidCard$ Artifact.IsRemembered+YouOwn+nonLand | Caster$ You | Origin$ Exile | Cost$ 0 | MayPlayTurnLimit$ 1 | MayPlayText$ Artifact
+SVar:PlayEn:Mode$ AlternativeCost | ValidCard$ Enchantment.IsRemembered+YouOwn+nonLand | Caster$ You | Origin$ Exile | Cost$ 0 | MayPlayTurnLimit$ 1 | MayPlayText$ Enchantment
+SVar:PlayIn:Mode$ AlternativeCost | ValidCard$ Instant.IsRemembered+YouOwn+nonLand | Caster$ You | Origin$ Exile | Cost$ 0 | MayPlayTurnLimit$ 1 | MayPlayText$ Instant
+SVar:PlaySo:Mode$ AlternativeCost | ValidCard$ Sorcery.IsRemembered+YouOwn+nonLand | Caster$ You | Origin$ Exile | Cost$ 0 | MayPlayTurnLimit$ 1 | MayPlayText$ Sorcery
+SVar:PlayTr:Mode$ AlternativeCost | ValidCard$ Tribal.IsRemembered+YouOwn+nonLand | Caster$ You | Origin$ Exile | Cost$ 0 | MayPlayTurnLimit$ 1 | MayPlayText$ Tribal
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Exile the top eight cards of your library. You may put a land card from among them onto the battlefield. Until end of turn, for each nonland card type, you may cast a spell of that type from among the exiled cards without paying its mana cost.

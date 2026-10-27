@@ -1,0 +1,10 @@
+Name:Aerial Caravan
+ManaCost:4 U U
+Types:Creature Human Soldier
+PT:4/3
+K:Flying
+A:AB$ Dig | Cost$ 1 U U | Defined$ You | DigNum$ 1 | Destination$ Exile | RememberChanged$ True | SubAbility$ DBEffect | AILogic$ ExileAndPlayUntilEOT | SpellDescription$ Exile the top card of your library. Until end of turn, you may play that card. (Reveal the card as you exile it.)
+SVar:DBEffect:DB$ Effect | RememberObjects$ RememberedCard | StaticAbilities$ STMayPlay | ForgetOnMoved$ Exile | SubAbility$ DBCleanup
+SVar:STMayPlay:Mode$ AlternativeZone | ValidCard$ Card.IsRemembered | Caster$ You | Origin$ Exile | Description$ You may play remembered card.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+Oracle:Flying\n{1}{U}{U}: Exile the top card of your library. Until end of turn, you may play that card. (Reveal the card as you exile it.)

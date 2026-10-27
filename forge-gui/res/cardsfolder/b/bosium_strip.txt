@@ -1,0 +1,8 @@
+Name:Bosium Strip
+ManaCost:3
+Types:Artifact
+A:AB$ Effect | Cost$ 3 T | StaticAbilities$ STBosiumStrip | SpellDescription$ Until end of turn, you may cast instant and sorcery spells from the top of your graveyard. If a spell cast this way would be put into a graveyard this turn, exile it instead.
+SVar:STBosiumStrip:Mode$ AlternativeZone | ValidCard$ Card.TopGraveyard+Instant+YouOwn,Card.TopGraveyard+Sorcery+YouOwn | Origin$ Graveyard | ReplaceGraveyard$ Exile | Description$ Until end of turn, you may cast instant and sorcery spells from the top of your graveyard. If a spell cast this way would be put into a graveyard this turn, exile it instead.
+SVar:NeedsOrderedGraveyard:TRUE
+AI:RemoveDeck:All
+Oracle:{3}, {T}: Until end of turn, you may cast instant and sorcery spells from the top of your graveyard. If a spell cast this way would be put into a graveyard this turn, exile it instead.

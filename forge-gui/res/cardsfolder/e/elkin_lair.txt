@@ -1,0 +1,14 @@
+Name:Elkin Lair
+ManaCost:3 R
+Types:World Enchantment
+T:Mode$ Phase | Phase$ Upkeep | TriggerZones$ Battlefield | Execute$ TrigChangeZone | TriggerDescription$ At the beginning of each player's upkeep, that player exiles a card at random from their hand. The player may play that card this turn. At the beginning of the next end step, if the player hasn't played the card, they put it into their graveyard.
+SVar:TrigChangeZone:DB$ ChangeZone | Origin$ Hand | Destination$ Exile | ChangeType$ Card | DefinedPlayer$ TriggeredPlayer | ChangeNum$ 1 | Hidden$ True | Mandatory$ True | AtRandom$ True | RememberChanged$ True | SubAbility$ ElkinEffect
+SVar:ElkinEffect:DB$ Effect | StaticAbilities$ ElkinPlay | ForgetOnMoved$ True | RememberObjects$ RememberedCard | Triggers$ TrigReturn | SVars$ DBReturn | SubAbility$ DBCleanup
+SVar:STMayPlay:Mode$ AlternativeZone | ValidCard$ Card.IsRemembered | Origin$ Exile | Description$ The player may play that card this turn.
+SVar:DBCleanup:DB$ Cleanup | ClearRemembered$ True
+# Return the card as a normal trigger
+SVar:TrigReturn:Mode$ Phase | Phase$ End of Turn | ValidPlayer$ Player | TriggerZones$ Command | Execute$ DBReturn | TriggerDescription$ At the beginning of the next end step, if the player hasn't played the card, they put it into their graveyard.
+SVar:DBReturn:DB$ ChangeZone | Defined$ Remembered | Origin$ Exile | Destination$ Graveyard
+AI:RemoveDeck:Random
+SVar:Picture:http://www.wizards.com/global/images/magic/general/elkin_lair.jpg
+Oracle:At the beginning of each player's upkeep, that player exiles a card at random from their hand. The player may play that card this turn. At the beginning of the next end step, if the player hasn't played the card, they put it into their graveyard.
