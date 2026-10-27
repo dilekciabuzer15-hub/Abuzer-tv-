@@ -1,0 +1,7 @@
+[format]
+Name:Standard
+Order:101
+Subtype:Standard
+Type:Sanctioned
+Sets:GRN, RNA, WAR, M20, ELD
+Banned:
