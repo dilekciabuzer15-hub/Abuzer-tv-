@@ -1,0 +1,144 @@
+package forge.game.ability.effects;
+
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+
+import forge.game.GameEntity;
+import forge.game.GameObject;
+import forge.game.GameObjectPredicates;
+import forge.game.ability.SpellAbilityEffect;
+import forge.game.player.Player;
+import forge.game.spellability.SpellAbility;
+import forge.game.spellability.SpellAbilityStackInstance;
+import forge.game.spellability.TargetChoices;
+import forge.game.zone.MagicStack;
+import forge.util.Aggregates;
+import forge.util.Localizer;
+
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * TODO: Write javadoc for this type.
+ *
+ */
+public class ChangeTargetsEffect extends SpellAbilityEffect {
+
+    /* (non-Javadoc)
+     * @see forge.card.ability.SpellAbilityEffect#resolve(forge.card.spellability.SpellAbility)
+     */
+    @Override
+    public void resolve(SpellAbility sa) {
+        final List<SpellAbility> sas = getTargetSpells(sa);
+        final boolean remember = sa.hasParam("RememberTargetedCard");
+        final Player activator = sa.getActivatingPlayer();
+
+        final MagicStack stack = activator.getGame().getStack();
+        for (final SpellAbility tgtSA : sas) {
+            SpellAbilityStackInstance si = stack.getInstanceMatchingSpellAbilityID(tgtSA);
+            if (si == null) {
+                // If there isn't a Stack Instance, there isn't really a target
+                continue;
+            }
+
+            SpellAbilityStackInstance changingTgtSI = si;
+            Player chooser = sa.getActivatingPlayer();
+
+            // Redirect rules read 'you MAY choose new targets' ... okay!
+            // TODO: Don't even ask to change targets, if the SA and subs don't actually have targets
+            boolean isOptional = sa.hasParam("Optional");
+            if (isOptional && !chooser.getController().confirmAction(sa, null, Localizer.getInstance().getMessage("lblDoYouWantChangeAbilityTargets", tgtSA.getHostCard().toString()))) {
+                continue;
+            }
+            if (sa.hasParam("ChangeSingleTarget")) {
+                // 1. choose a target of target spell
+                List<Pair<SpellAbilityStackInstance, GameObject>> allTargets = new ArrayList<>();
+                while(changingTgtSI != null) {
+                    SpellAbility changedSa = changingTgtSI.getSpellAbility(true);
+                    if (changedSa.usesTargeting()) {
+                        for(GameObject it : changedSa.getTargets())
+                            allTargets.add(ImmutablePair.of(changingTgtSI, it));
+                    }
+                    changingTgtSI = changingTgtSI.getSubInstance();
+                }
+                if (allTargets.isEmpty()) {
+                    // is it an error or not?
+                    System.err.println("Player managed to target a spell without targets with Spellskite's ability.");
+                    return;
+                }
+
+                Pair<SpellAbilityStackInstance, GameObject> chosenTarget = chooser.getController().chooseTarget(sa, allTargets);
+                // 2. prepare new target choices
+                SpellAbilityStackInstance replaceIn = chosenTarget.getKey();
+                GameObject oldTarget = chosenTarget.getValue();
+                TargetChoices oldTargetBlock = replaceIn.getTargetChoices();
+                TargetChoices newTargetBlock = oldTargetBlock.clone();
+                // gets the divied value from old target
+                Integer div = oldTargetBlock.getDividedValue(oldTarget);
+                newTargetBlock.remove(oldTarget);
+                replaceIn.updateTarget(newTargetBlock);
+                // 3. test if updated choices would be correct.
+                GameObject newTarget = Iterables.getFirst(getDefinedCardsOrTargeted(sa, "DefinedMagnet"), null);
+
+                if (replaceIn.getSpellAbility(true).canTarget(newTarget)) {
+                    newTargetBlock.add(newTarget);
+                    if (div != null) {
+                        newTargetBlock.addDividedAllocation(newTarget, div);
+                    }
+                    replaceIn.updateTarget(newTargetBlock);
+                }
+                else {
+                    replaceIn.updateTarget(oldTargetBlock);
+                }
+            }
+            else {
+                while(changingTgtSI != null) {
+                    SpellAbility changingTgtSA = changingTgtSI.getSpellAbility(true);
+                    if (changingTgtSA.usesTargeting()) {
+                        // random target and DefinedMagnet works on single targets
+                        if (sa.hasParam("RandomTarget")){
+                            int div = changingTgtSA.getTotalDividedValue();
+                            changingTgtSA.resetTargets();
+                            List<GameEntity> candidates = changingTgtSA.getTargetRestrictions().getAllCandidates(changingTgtSA, true);
+                            GameEntity choice = Aggregates.random(candidates);
+                            changingTgtSA.getTargets().add(choice);
+                            if (changingTgtSA.isDividedAsYouChoose()) {
+                                changingTgtSA.addDividedAllocation(choice, div);
+                            }
+
+                            changingTgtSI.updateTarget(changingTgtSA.getTargets());
+                        }
+                        else if (sa.hasParam("DefinedMagnet")){
+                            GameObject newTarget = Iterables.getFirst(getDefinedCardsOrTargeted(sa, "DefinedMagnet"), null);
+                            if (newTarget != null && changingTgtSA.canTarget(newTarget)) {
+                                int div = changingTgtSA.getTotalDividedValue();
+                                changingTgtSA.resetTargets();
+                                changingTgtSA.getTargets().add(newTarget);
+                                changingTgtSI.updateTarget(changingTgtSA.getTargets());
+                                if (changingTgtSA.isDividedAsYouChoose()) {
+                                    changingTgtSA.addDividedAllocation(newTarget, div);
+                                }
+                            }
+                        }
+                        else {
+                            // Update targets, with a potential new target
+                            Predicate<GameObject> filter = sa.hasParam("TargetRestriction") ? GameObjectPredicates.restriction(sa.getParam("TargetRestriction").split(","), activator, sa.getHostCard(), sa) : null;
+                            // TODO Creature.Other might not work yet as it should
+                            TargetChoices newTarget = sa.getActivatingPlayer().getController().chooseNewTargetsFor(changingTgtSA, filter, false);
+                            if (null != newTarget) {
+                                changingTgtSI.updateTarget(newTarget);
+                            }
+                        }
+                    }
+                    changingTgtSI = changingTgtSI.getSubInstance();
+                }
+            }
+            if (remember) {
+                sa.getHostCard().addRemembered(tgtSA.getHostCard());
+            }
+        }
+    }
+}
